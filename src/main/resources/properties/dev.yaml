@@ -1,0 +1,14 @@
+db:
+ Host: "localhost"
+ Port: "3306"
+ User: "root"
+ Password: "Eskrishna@1"
+ Database: "banking"
+ 
+http:
+ Path: "/api/*"
+ Port: "8081"
+ Read timeout: "3000"  
+ 
+API:
+ id: "20476155"  
