@@ -1,0 +1,168 @@
+#%RAML 1.0
+title: mulesoft-atmtransaction
+version: v1
+protocols:
+  - HTTP
+mediaType: 
+- application/json
+baseUri: 
+
+/createAccount:
+  post:
+    queryParameters:
+      customerName:
+        required: true
+        maxLength: 45
+        minLength: 4
+      bank:
+        required: true
+        enum: [ICICI , AXIS ,HDFC ]
+      type:
+        required: true
+        enum: [savings , current]
+    body:
+      application/json:
+        type: object
+        properties:
+          accountNum:
+            required: true
+            type: string
+            minLength: 10
+            maxLength: 10
+          atmPin:
+            required: true
+            type: string
+            minLength: 4
+            maxLength: 4
+            example: "1234"
+          ifscCode:
+            required: true
+            minLength: 4
+            maxLength: 10
+          depositAmount:
+            required: false
+            type: number
+          mailId:
+            required: true
+            type: string
+          contact:
+            required: true
+            type: string
+    responses:
+      201:
+        body:
+          application/json:
+            example: {
+              "status": "account created successfully with account number 123456"
+            }
+/checkBalance:
+  post:
+    queryParameters:
+      bank:
+        required: true
+        enum: [ICICI , AXIS ,HDFC ]
+      type:
+        required: true
+        enum: [savings , current]
+    body:
+      application/json:
+        type: object
+        properties:
+          accountNum:
+            required: true
+            type: string
+            minLength: 10
+            maxLength: 10
+          atmPin:
+            required: true
+            type: string
+            minLength: 4
+            maxLength: 4
+            example: "1234"
+    responses:
+      200:
+        body:
+          application/json:
+            example: {
+              "status": "your total balance is 10000 as on 15/08/2025 is 10000"
+            }
+
+/withDraw:
+  post:
+    queryParameters:
+      bank:
+        required: true
+        enum: [ICICI , AXIS ,HDFC ]
+      type:
+        required: true
+        enum: [savings , current]
+    body:
+      application/json:
+        type: object
+        properties:
+          accountNum:
+            required: true
+            type: string
+            minLength: 10
+            maxLength: 10
+          atmPin:
+            required: true
+            type: string
+            minLength: 4
+            maxLength: 4
+            example: "1234"
+          amountToBeWithdraw:
+            required: true
+            type: number
+    responses:
+      200:
+        body:
+          application/json:
+            example: {
+              "status": "amount 2000 is debited. your total balance is 8000"
+            }
+/unblock:
+  put:
+    body:
+      application/json:
+        type: object
+        properties:
+          users:
+            default: admin
+          password:
+            default: admin 
+          accountNum:
+            required: true
+            type: string
+            minLength: 10
+            maxLength: 10
+          bank:
+            required: true
+            enum: [ICICI , AXIS ,HDFC ]  
+    responses:
+      200:
+        body:
+          application/json:
+            example: {
+              "status": "account 123456 is unblocked "
+            }
+              
+                           
+                            
+              
+          
+                          
+          
+              
+      
+                                 
+                      
+          
+              
+
+         
+
+              
+            
+          
+
